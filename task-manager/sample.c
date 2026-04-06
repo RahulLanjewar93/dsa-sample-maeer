@@ -1,32 +1,19 @@
 #include <stdio.h>
-#include <stdlib.h>   // for rand()
-#include <time.h>     // for random IDs
-#include <string.h>   // for strcpy
+#include <string.h>
 
-#define MAX_SIZE 10
+#define MAX_TASKS 10
+#define MAX_DESC  100
 
-char stack[MAX_SIZE][100];
-int taskIDs[MAX_SIZE];
-int top = -1;   // -1 means stack is empty
+char tasks[MAX_TASKS][MAX_DESC];
+int  taskIDs[MAX_TASKS];
+int  top   = -1;
+int  nextID = 1;
 
-// -----------------------------------------------------------------------
-// HELPER FUNCTIONS (already done for you — read and understand these!)
-// -----------------------------------------------------------------------
+int  isFull()   { return top == MAX_TASKS - 1; }
+int  isEmpty()  { return top == -1; }
 
-void printLine() {
+void printDivider() {
     printf("----------------------------------------\n");
-}
-
-int isFull() {
-    return top == MAX_SIZE - 1;
-}
-
-int isEmpty() {
-    return top == -1;
-}
-
-int generateID() {
-    return rand() % 1000;
 }
 
 // -----------------------------------------------------------------------
@@ -35,6 +22,8 @@ int generateID() {
 //       and push the data onto both the stack and taskIDs arrays.
 // Note: top starts at -1, so increment it before storing data.
 // -----------------------------------------------------------------------
+
+
 void addTask() {
     // Write your code here
 
@@ -45,6 +34,7 @@ void addTask() {
 // Hint: save the top task's ID and description in a variable,
 //       then pop it off the stack and print what was removed (we store data in variable so that it can be used while displaying).
 // -----------------------------------------------------------------------
+
 void removeTask() {
     // Write your code here
 
@@ -54,53 +44,42 @@ void removeTask() {
 // TODO 3: displayTasks()
 // Hint: loop from top down to 0 and print
 //       each task's ID and description.
-// -----------------------------------------------------------------------
+// ---------------------------------------------------------------------
+
 void displayTasks() {
     // Write your code here
 
 }
 
-// -----------------------------------------------------------------------
-// MENU & MAIN — Already done for you, do not modify
-// -----------------------------------------------------------------------
-
 void printMenu() {
     printf("\n");
-    printLine();
+    printDivider();
     printf("           STACK TASK MANAGER\n");
-    printLine();
-    printf("1. Add task (push)\n");
-    printf("2. Remove task (pop)\n");
-    printf("3. Display all tasks (pretty stack view)\n");
+    printDivider();
+    printf("1. Add task\n");
+    printf("2. Remove task\n");
+    printf("3. Display all tasks\n");
     printf("4. Exit\n");
     printf("Enter your choice (1-4): ");
 }
 
 int main() {
-    srand(time(NULL));
-
     int choice;
 
     while (1) {
         printMenu();
         scanf("%d", &choice);
 
-        if (choice == 1) {
-            addTask();
-        } else if (choice == 2) {
-            removeTask();
-        } else if (choice == 3) {
-            displayTasks();
-        } else if (choice == 4) {
-            printf("Goodbye!\n");
-            break;
-        } else {
-            printf("Invalid choice. Please enter 1, 2, 3, or 4.\n");
+        switch (choice) {
+            case 1: addTask();      break;
+            case 2: removeTask();   break;
+            case 3: displayTasks(); break;
+            case 4: printf("Goodbye!\n"); return 0;
+            default: printf("Invalid choice. Enter 1-4.\n");
         }
     }
-
-    return 0;
 }
+
 
 // -----------------------------------------------------------------------
 // DETAILED HINTS — Only read these if you are stuck!
