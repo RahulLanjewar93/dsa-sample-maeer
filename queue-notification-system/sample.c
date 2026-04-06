@@ -1,23 +1,26 @@
+// Notification Queue — Array-based queue implementation (starter file)
+// Complete the two TODO functions below to make the program work.
+
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-// Maximum number of notifications the queue can hold
-#define MAX_MSG 100
+// -----------------------------------------------------------------------
+// Constants
+// -----------------------------------------------------------------------
 
-// Maximum length of each notification text
-#define MAX_LEN 100
-
-// Array to store all notifications (like a line of people waiting)
-char queue[MAX_MSG][MAX_LEN];
-
-// front = index of the first (oldest) notification
-// rear  = index of the last (newest) notification
-// size  = how many notifications are currently in the queue
-int front = 0, rear = -1, size = 0;
+#define MAX_MSG 100  // Maximum number of notifications the queue can hold
+#define MAX_LEN 100  // Maximum length of each notification text
 
 // -----------------------------------------------------------------------
-// HELPER FUNCTIONS (already done for you — read and understand these!)
+// Global state
+// -----------------------------------------------------------------------
+
+char queue[MAX_MSG][MAX_LEN];     // Notification messages
+int  front = 0, rear = -1;        // front = oldest item, rear = newest item
+int  size  = 0;                   // Number of notifications currently in the queue
+
+// -----------------------------------------------------------------------
+// Queue helpers — already done for you, read and understand these!
 // -----------------------------------------------------------------------
 
 // Returns 1 (true) if the queue has no notifications
@@ -32,10 +35,11 @@ int isFull() {
 
 // -----------------------------------------------------------------------
 // TODO 1: enqueue()
-// Hint: move rear forward,
-//       copy the message into the queue at the rear position, and update size.
+// Hint: move rear forward, copy the message into the queue at the rear
+//       position, and update size.
 // Note: rear starts at -1, so increment it before storing the message.
 // -----------------------------------------------------------------------
+
 void enqueue(const char* msg) {
     // Write your code here
 
@@ -43,21 +47,21 @@ void enqueue(const char* msg) {
 
 // -----------------------------------------------------------------------
 // TODO 2: processNext()
-// Hint: print the message at front,
-//       shift all remaining messages one step forward, then update rear and size.
+// Hint: print the message at front (0th index), shift all remaining messages one step
+//       forward, then update rear and size.
 // Note: The front of the queue is always index 0 — the oldest message is served first.
 // -----------------------------------------------------------------------
+
 void processNext() {
     // Write your code here
 
 }
 
 // -----------------------------------------------------------------------
-// MAIN — Already done for you, do not modify
+// Entry point — do not modify
 // -----------------------------------------------------------------------
-
 int main() {
-    int choice;
+    int  choice;
     char msg[MAX_LEN];
 
     printf("Simple Notification Queue Service (REPL)\n");
@@ -71,17 +75,20 @@ int main() {
 
         scanf("%d", &choice);
 
-        if (choice == 1) {
-            printf("Enter notification text: ");
-            scanf(" %[^\n]", msg);
-            enqueue(msg);
-        } else if (choice == 2) {
-            processNext();
-        } else if (choice == 3) {
-            printf("Bye!\n");
-            break;
-        } else {
-            printf("Invalid choice. Try again.\n");
+        switch (choice) {
+            case 1:
+                printf("Enter notification text: ");
+                scanf(" %[^\n]", msg);
+                enqueue(msg);
+                break;
+            case 2:
+                processNext();
+                break;
+            case 3:
+                printf("Bye!\n");
+                return 0;
+            default:
+                printf("Invalid choice. Try again.\n");
         }
     }
 
@@ -111,5 +118,5 @@ int main() {
 //           for (int i = front; i < rear; i++)
 //               strcpy(queue[i], queue[i + 1]);
 //   Step 4: Decrement rear (rear--) and size (size--)
-//   Step 5: Print the processed message
-//           Example: printf("Sending notification: %s\n", msg);
+//   Step 5: Print the processed message:
+//           printf("Sending notification: %s\n", msg);
