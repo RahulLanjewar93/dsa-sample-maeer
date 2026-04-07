@@ -32,3 +32,4 @@ Demonstrates a **singly linked list** using dynamic memory allocation.
 3. Paste it into the editor, fill the missing code and click **Run**
 4. Follow the on-screen menu to interact with the program
 5. Implemented code is found in `final.c` files.
+6. Algo visualizer project https://algovisualizerproject.netlify.app/
